@@ -15,7 +15,7 @@ sans-serif;
 $body-background-color: #333;
 $body-foreground-color: rgb(78, 169, 226);
 $body-text-color: rgb(173, 173, 173);
-$link-color: #059;
+$link-color: rgb(55, 116, 165);
 $header-background-color: rgb(2, 39, 70);
 $header-foreground-color: rgb(173, 173, 173);
 $header-height: 10vh;
@@ -50,6 +50,7 @@ body {
       }
 
       .clickable {
+        min-width: 25px;
         color: darken($header-foreground-color,25%);
         padding: 25px 20px 5px 20px;
         cursor: pointer;
@@ -58,6 +59,7 @@ body {
         transition: padding-top 150ms, padding-bottom 250ms;
         &:hover {
           background-color: darken($header-background-color, 10%);
+          @include appicon-cross-bold;
         }
 
       }
@@ -65,6 +67,9 @@ body {
         @include appicon-menu-closed;
         padding: 15px 20px 15px 20px;
         color: lighten($header-foreground-color, 10%);
+        &:hover{
+          @include appicon-menu-open;
+        }
       }
     }
 
@@ -97,15 +102,11 @@ body {
         min-height: 30px;
         text-decoration: none;
         color: $link-color;
-        padding-top: 8px;
-        padding-bottom: 10px;
+        padding-top: 18px;
+        padding-bottom: 8px;
         padding-left: 5px;
         display: block;
         transition: background-color 300ms ease-in-out, color 150ms linear;
-        .active {
-          color: white;
-          font-weight: bolder;
-        }
         &:hover {
           background-color: lighten($body-background-color, 8%);
           color: lighten($link-color, 45%);
@@ -114,11 +115,10 @@ body {
       }
       .active {
         color: white;
-        font-weight: bolder;
         background-color: $body-background-color;
         &:hover{
           color: white;
-          background-color: darken($body-background-color, 8%);
+          background-color: lighten($body-background-color, 8%);
         }
       }
     }

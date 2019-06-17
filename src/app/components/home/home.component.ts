@@ -27,7 +27,6 @@ export class HomeComponent implements OnInit {
 
   public toggleNav(): void {
     this.navCollapsed = !this.navCollapsed;
-    console.log("toggleNav", this.navCollapsed);
   }
 
 }
