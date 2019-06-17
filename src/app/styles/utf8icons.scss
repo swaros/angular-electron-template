@@ -1,0 +1,85 @@
+@mixin appicon-menu-open{
+  &:before{
+    content: "⇔";
+  }
+}
+
+@mixin appicon-menu-closed{
+  &:before{
+    content: "☰";
+  }
+}
+
+
+@mixin appicon-arrow-right{
+  &:before{
+    content: "→";
+  }
+}
+
+@mixin appicon-arrow-left{
+  &:before{
+    content: "←";
+  }
+}
+
+@mixin appicon-arrow-top{
+  &:before{
+    content: "↑";
+  }
+}
+
+@mixin appicon-arrow-bottom{
+  &:before{
+    content: "↓";
+  }
+}
+
+@mixin appicon-arrow-circle-not-clockwise{
+  &:before{
+    content: "↺";
+  }
+}
+
+@mixin appicon-arrow-circle-not-clockwise{
+  &:before{
+    content: "↻";
+  }
+}
+
+
+@mixin appicon-cross-bold{
+  &:before{
+    content: "✖";
+  }
+}
+
+@mixin appicon-cross-bold{
+  &:before{
+    content: "✖";
+  }
+}
+
+@mixin appicon-cross-ballot{
+  &:before{
+    content: "✗";
+  }
+}
+
+@mixin appicon-cross-ballot-bold{
+  &:before{
+    content: "✘";
+  }
+}
+
+@mixin appicon-bullet{
+  &:before{
+    content: "•";
+  }
+}
+
+@mixin appicon-bullet-bold{
+  &:before{
+    content: "●";
+  }
+}

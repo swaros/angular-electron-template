@@ -1,18 +1,20 @@
 <div class="app">
   <div class="container">
     <div class="header">
-      <h1 class="title">
-        {{ 'PAGES.HOME.TITLE' | translate }}
-      </h1>
+      <div class="angapp-row">
+        <div class="clickable" title="toggle menu" [class.closed] = "isCollapsed()" (click)="toggleNav()"></div>
+        <h3 class="title">
+          {{ 'PAGES.HOME.TITLE' | translate }}
+        </h3>
+
+      </div>
     </div>
     <div class="container body">
-      <nav>
-        <a routerLink="/" routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact:true}">Home</a>
-        <a routerLink="/welcome" routerLinkActive="active"
-        [routerLinkActiveOptions]="{exact:true}">welcome</a>
-      </nav>
 
+        <nav [class.collapsed] = "isCollapsed()">
+          <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a>
+          <a routerLink="/welcome" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">welcome</a>
+        </nav>
       <div class="content">
         <ng-content></ng-content>
       </div>

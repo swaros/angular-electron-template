@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import "app/styles/utf8icons";
+
 html,
 body {
   margin: 0;
@@ -25,11 +27,7 @@ body {
   font: 100% $font-stack;
 }
 
-
-
 .app {
-
-
   .container {
     height: 100vh - $header-height;
     display: block;
@@ -37,11 +35,13 @@ body {
     justify-content: center;
 
     .header {
+
       width: 100vw;
       color: $header-foreground-color;
       background-color: $header-background-color;
       max-height: $header-height;
       overflow: hidden;
+
 
       .title {
         color: white;
@@ -49,7 +49,23 @@ body {
         padding: 25px 20px 5px 20px;
       }
 
+      .clickable {
+        color: darken($header-foreground-color,25%);
+        padding: 25px 20px 5px 20px;
+        cursor: pointer;
+        @include appicon-menu-open;
+        font-size: 18px;
+        transition: padding-top 150ms, padding-bottom 250ms;
+        &:hover {
+          background-color: darken($header-background-color, 10%);
+        }
 
+      }
+      .closed{
+        @include appicon-menu-closed;
+        padding: 15px 20px 15px 20px;
+        color: lighten($header-foreground-color, 10%);
+      }
     }
 
     .body {
@@ -61,14 +77,19 @@ body {
       height: 100%;
     }
 
+    .collapsed {
+      width: 1px;
+      max-width: 1px;
+    }
     // navigation
     nav {
       width: $navigation-width;
+      max-width: $navigation-width;
       overflow: hidden;
       text-align: left;
       background-color: darken($body-background-color, 10%);
       height: 100%;
-
+      transition: width 300ms ease-in-out,max-width 300ms ease-in-out;
 
       a {
         width: 100%;
