@@ -1,3 +1,4 @@
+import { StateStorageService } from './../../services/state-storage.service';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -9,18 +10,24 @@ export class WorkbenchComponent implements OnInit {
 
   @Input() navCollapsed = false;
 
-  @Input() theme: String = 'theme-light';
+  private theme: String = 'theme-light';
 
   private themeList = ['theme-dark', 'theme-light'];
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private storage: StateStorageService) {
   }
 
-  public setTheme(themeName): void {
+  ngOnInit() {
+    this.getTheme();
+  }
+
+  public setTheme(themeName: string): void {
     if (this.themeList.indexOf(themeName) > -1) {
       this.theme = themeName;
+      this.storage.set({
+        key: 'current-theme',
+        value: themeName
+      });
     }
   }
 
@@ -29,7 +36,10 @@ export class WorkbenchComponent implements OnInit {
   }
 
   public getTheme(): String {
-    console.log(this.theme);
+    const storedTheme = this.storage.get('current-theme');
+    if (storedTheme !== null) {
+      this.setTheme(storedTheme);
+    }
     return this.theme;
   }
 

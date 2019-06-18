@@ -20,6 +20,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { WelcomeComponentComponent } from './components/welcome-component/welcome-component.component';
 import { WorkbenchComponent } from './components/workbench/workbench.component';
+import { StateStorageService } from './services/state-storage.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -47,7 +48,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [ElectronService],
+  providers: [ElectronService, StateStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
