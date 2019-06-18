@@ -41,7 +41,7 @@
   }
 }
 
-@mixin appicon-arrow-circle-not-clockwise{
+@mixin appicon-arrow-circle-clockwise{
   &:before{
     content: "↻";
   }
@@ -54,11 +54,6 @@
   }
 }
 
-@mixin appicon-cross-bold{
-  &:before{
-    content: "✖";
-  }
-}
 
 @mixin appicon-cross-ballot{
   &:before{
