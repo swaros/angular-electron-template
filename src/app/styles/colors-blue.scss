@@ -1,0 +1,33 @@
+// variables
+
+$theme-dark: true !default;
+
+$darkStyles: (
+  "body-background-color": #333,
+  "body-foreground-color": rgb(78, 169, 226),
+  "body-text-color": rgb(173, 173, 173),
+  "link-color": rgb(55, 116, 165),
+  "header-background-color": rgb(30, 64, 75),
+  "header-foreground-color": rgb(173, 173, 173),
+  "header-height": 10vh,
+  "navigation-width": 250px
+);
+
+$lightStyles: (
+  "body-background-color": rgb(245, 245, 245),
+  "body-foreground-color": rgb(22, 62, 87),
+  "body-text-color": rgb(12, 12, 12),
+  "link-color": rgb(12, 92, 158),
+  "header-background-color": rgb(98, 133, 161),
+  "header-foreground-color": rgb(173, 173, 173),
+  "header-height": 10vh,
+  "navigation-width": 250px
+);
+
+@function getThemeStyle($type){
+    @if $theme-dark {
+      @return map-get($darkStyles, $type );
+    } @else {
+      @return map-get($lightStyles, $type );
+    }
+}

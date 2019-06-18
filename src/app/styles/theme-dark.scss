@@ -1,0 +1,60 @@
+@import "utf8icons";
+@import "base-styles";
+@import "design-angapp";
+
+$theme-dark: true;
+
+.theme-dark {
+  font-family:  Helvetica Neue, Helvetica, Arial, sans-serif;
+  width: 100%;
+  height: 100%;
+  background-color: getThemeStyle("body-background-color");
+  @include app;
+  .app {
+    background-color: getThemeStyle("body-background-color");
+    color: getThemeStyle("body-foreground-color");
+
+    .header {
+      color: getThemeStyle("header-foreground-color");
+      background-color: getThemeStyle("header-background-color");
+      .clickable {
+        color: darken(getThemeStyle("header-foreground-color"), 25%);
+        &:hover {
+          background-color: darken(getThemeStyle("header-background-color"), 10%);
+        }
+      }
+      .closed {
+        color: lighten(getThemeStyle("header-foreground-color"), 10%);
+        &:hover {
+          color: black;
+        }
+      }
+    }
+    nav {
+      background-color: darken(getThemeStyle("body-background-color"), 10%);
+      a {
+        color: getThemeStyle("link-color");
+        &:hover {
+          background-color: lighten(getThemeStyle("body-background-color"), 8%);
+          color: lighten(getThemeStyle("link-color"), 45%);
+        }
+      }
+      .active {
+        color: white;
+        background-color: getThemeStyle("body-background-color");
+        &:hover {
+          color: white;
+          background-color: lighten(getThemeStyle("body-background-color"), 8%);
+        }
+      }
+    }
+
+    .angapp-box {
+      background-color: lighten(getThemeStyle("body-background-color"), 5%);
+      p {
+        color: getThemeStyle("body-text-color");
+      }
+    }
+
+  }
+}
