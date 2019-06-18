@@ -1,7 +1,10 @@
+@mixin colorThemeChange {
+  transition: background-color 300ms linear, color 300ms linear;
+}
 @mixin app {
   width: 100%;
   height: 100%;
-
+  @include colorThemeChange();
   .container {
     height: 100vh - getThemeStyle("header-height");
     display: block;
@@ -13,7 +16,7 @@
       width: 100vw;
       max-height: getThemeStyle("header-height");
       overflow: hidden;
-
+      @include colorThemeChange();
 
       .title {
         color: white;
@@ -92,13 +95,14 @@
     }
 
     .angapp-box {
+      @include colorThemeChange();
       margin: 15px;
       border-radius: 6px;
       border-style: none;
       border-width: 1px;
       padding: 10px;
       min-height: 80px;
-      box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 
       p {
         padding-left: 8px;
