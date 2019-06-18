@@ -50,7 +50,8 @@ $theme-dark: false;
     }
 
     .angapp-box {
-      background-color: darken(getThemeStyle("body-background-color"), 5%);
+      background-color: getThemeStyle("body-background-color");
+      border-color: lighten(getThemeStyle("body-text-color"), 40%);
       p {
         color: getThemeStyle("body-text-color");
       }

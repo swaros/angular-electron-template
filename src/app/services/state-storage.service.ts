@@ -20,7 +20,7 @@ export class StateStorageService {
     return 2;
   }
 
-  public get(key: string): any{
+  public get(key: string): any {
     const found = this.storage.filter((stored: KeyValue) => stored.key === key);
     if (found !== null && found.length === 1) {
       return found[0].value;
