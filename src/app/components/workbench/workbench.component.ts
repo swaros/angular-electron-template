@@ -1,6 +1,6 @@
 import { ElectronService } from './../../providers/electron.service';
 import { StateStorageService } from './../../services/state-storage.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, NgZone } from '@angular/core';
 
 @Component({
   selector: 'app-workbench',
@@ -15,14 +15,20 @@ export class WorkbenchComponent implements OnInit {
 
   private themeList = ['theme-dark', 'theme-light'];
 
-  constructor(private storage: StateStorageService, private electron: ElectronService ) {
+  constructor(private storage: StateStorageService,
+     private electron: ElectronService,
+     private ngZone: NgZone
+     ) {
   }
 
   ngOnInit() {
     this.getTheme();
-    this.electron.addListenerOnce('change_design', (event: any, arg: any) => {
-      console.log('WORKBENCH: change design by menu to:', arg);
-      this.setTheme(arg);
+    this.electron.addListenerOnce('change_design', (event: any, theme: any) => {
+      console.log('WORKBENCH: change design by menu to:', theme);
+      this.ngZone.runOutsideAngular(() => {
+        this.setTheme(theme);
+        this.ngZone.run(() => { console.log('theme switch done'); });
+      });
     });
   }
 

@@ -13,13 +13,11 @@ function createMenu() {
       submenu: [
         {
           label: 'Dark Theme', click() {
-            console.log('menu dark theme');
             win.webContents.send('change_design', 'theme-dark');
           }
         },
         {
           label: 'Light Theme', click() {
-            console.log('menu light theme');
             win.webContents.send('change_design', 'theme-light');
           }
         },
