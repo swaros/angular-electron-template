@@ -1,10 +1,43 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, screen, Menu, ipcMain } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
 let win, serve;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
+
+function createMenu() {
+  const menu = Menu.buildFromTemplate([
+    {
+      label: 'Menu',
+      submenu: [
+        {
+          label: 'Dark Theme', click() {
+            console.log('menu dark theme');
+            win.webContents.send('change_design', 'theme-dark');
+          }
+        },
+        {
+          label: 'Light Theme', click() {
+            console.log('menu light theme');
+            win.webContents.send('change_design', 'theme-light');
+          }
+        },
+        {
+          label: 'Exit',
+          click() {
+            app.quit();
+          }
+        }
+      ]
+    }
+  ]);
+  Menu.setApplicationMenu(menu);
+}
+
+function createListener() {
+
+}
 
 function createWindow() {
 
@@ -33,12 +66,13 @@ function createWindow() {
       protocol: 'file:',
       slashes: true
     }));
+    createMenu();
   }
 
   if (serve) {
     win.webContents.openDevTools();
   }
-
+  win.webContents.openDevTools();
   // Emitted when the window is closed.
   win.on('closed', () => {
     // Dereference the window object, usually you would store window

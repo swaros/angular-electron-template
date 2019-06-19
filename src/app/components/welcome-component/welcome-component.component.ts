@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ElectronService } from '../../providers/electron.service';
 
 @Component({
   selector: 'app-welcome-component',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomeComponentComponent implements OnInit {
 
-  constructor() { }
+  constructor(private electron: ElectronService ) { }
 
   ngOnInit() {
+  }
+
+  sendMessage() {
+      this.electron.sendMsg('test', ['test']);
   }
 
 }

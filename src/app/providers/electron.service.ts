@@ -15,6 +15,8 @@ export class ElectronService {
   childProcess: typeof childProcess;
   fs: typeof fs;
 
+  private listener: string[] = [];
+
   constructor() {
     // Conditional imports
     if (this.isElectron()) {
@@ -24,6 +26,22 @@ export class ElectronService {
 
       this.childProcess = window.require('child_process');
       this.fs = window.require('fs');
+    }
+  }
+
+  addListenerOnce(msg: string, callback: Function) {
+    if (this.isElectron()) {
+      if (this.listener.indexOf(msg) === -1) {
+        this.ipcRenderer.on(msg, callback);
+        this.listener.push(msg);
+        console.log('event listener registered', msg);
+      }
+    }
+  }
+
+  sendMsg(msg: string, arg: any[]) {
+    if (this.isElectron()) {
+      this.ipcRenderer.send(msg, arg);
     }
   }
 
