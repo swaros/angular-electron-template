@@ -1,6 +1,8 @@
 import { ElectronService } from './../../providers/electron.service';
 import { StateStorageService } from './../../services/state-storage.service';
 import { Component, OnInit, Input, NgZone } from '@angular/core';
+import { AppConfigShared } from '../../../config/app.config';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-workbench',
@@ -11,23 +13,32 @@ export class WorkbenchComponent implements OnInit {
 
   @Input() navCollapsed = false;
 
-  private theme: String = 'theme-light';
+  @Input() forceNonElectronFlag = false;
+
+  private theme = 'theme-light';
 
   private themeList = ['theme-dark', 'theme-light'];
 
   constructor(private storage: StateStorageService,
      private electron: ElectronService,
-     private ngZone: NgZone
+     private ngZone: NgZone,
+     private router: Router
      ) {
   }
 
   ngOnInit() {
     this.getTheme();
-    this.electron.addListenerOnce('change_design', (event: any, theme: any) => {
+    this.electron.addListenerOnce(AppConfigShared.EVENT_CHANNEL_DESIGN, (event: any, theme: any) => {
       console.log('WORKBENCH: change design by menu to:', theme);
       this.ngZone.runOutsideAngular(() => {
         this.setTheme(theme);
-        this.ngZone.run(() => { console.log('theme switch done'); });
+        this.ngZone.run(() => { console.log('theme switch done', theme); });
+      });
+    });
+
+    this.electron.addListenerOnce(AppConfigShared.EVENT_CHANNEL_SITE_ROUTE, (event: any, site: any) => {
+      this.ngZone.runOutsideAngular(() => {
+        this.ngZone.run(() => { this.router.navigateByUrl(site, { skipLocationChange: true }); });
       });
     });
   }
@@ -44,11 +55,11 @@ export class WorkbenchComponent implements OnInit {
     }
   }
 
-  public getAllThemes(): String[] {
+  public getAllThemes(): string[] {
     return this.themeList;
   }
 
-  public getTheme(): String {
+  public getTheme(): string {
     const storedTheme = this.storage.get('current-theme');
     if (storedTheme !== null) {
       this.setTheme(storedTheme);
@@ -70,6 +81,13 @@ export class WorkbenchComponent implements OnInit {
 
   public toggleNav(): void {
     this.navCollapsed = !this.navCollapsed;
+  }
+
+  public isElectron(): boolean {
+    if (this.forceNonElectronFlag === true) {
+      return false;
+    }
+    return this.electron.isElectron();
   }
 
 }

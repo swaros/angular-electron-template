@@ -1,6 +1,10 @@
-import { app, BrowserWindow, screen, Menu, ipcMain } from 'electron';
+import { ConfigRoot } from './src/app/model/ConfigRoot';
+import { ConfigRoute } from './src/app/model/ConfigRoute';
+import { AppConfigShared } from './src/config/app.config';
+import { app, BrowserWindow, screen, Menu, ipcMain, MenuItem } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
+import { ElementSchemaRegistry } from '@angular/compiler';
 
 let win, serve;
 const args = process.argv.slice(1);
@@ -30,11 +34,13 @@ function createMenu() {
       ]
     }
   ]);
-  Menu.setApplicationMenu(menu);
-}
 
-function createListener() {
+  // const cfgMenu = Menu.buildFromTemplate(AppConfigShared.getConfig().navigation);
+  // const navCfg = AppConfigShared.getConfig().navigation;
 
+  //Menu.setApplicationMenu(menu);
+  const cfgMenu = Menu.buildFromTemplate(AppConfigShared.getConfig(win, app).electronNav);
+  Menu.setApplicationMenu(cfgMenu);
 }
 
 function createWindow() {
