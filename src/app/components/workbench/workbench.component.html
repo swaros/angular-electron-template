@@ -3,21 +3,23 @@
     <div class="container">
       <div class="header">
         <div class="angapp-row">
-          <div *ngIf="isElectron() === false" class="clickable" title="toggle menu" [class.closed] = "isCollapsed()" (click)="toggleNav()"></div>
+          <div *ngIf="!isElectron()" class="clickable" title="toggle menu" [class.closed] = "isCollapsed()" (click)="toggleNav()"></div>
           <h3 class="title">
             {{ 'PAGES.HOME.TITLE' | translate }}
           </h3>
+          <span *ngIf="isElectron()">electron</span>
         </div>
       </div>
       <div class="container body">
 
-        <nav [class.collapsed] = "isCollapsed()" *ngIf="isElectron() === false">
+        <nav [class.collapsed] = "isCollapsed()" *ngIf="!isElectron()">
+          <div class="nav-header">Navigation</div>
           <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a>
           <a routerLink="/welcome" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">welcome</a>
 
-          <div *ngFor="let theme of getAllThemes()">
-                <div class="clickable" title="pick theme {{theme}}"  (click)="setTheme(theme)">{{theme}}</div>
-          </div>
+          <div class="nav-header">styles</div>
+          <div class="a-style" *ngFor="let theme of getAllThemes()" (click)="setTheme(theme)">{{theme}}</div>
+
         </nav>
         <div class="content">
           <ng-content></ng-content>

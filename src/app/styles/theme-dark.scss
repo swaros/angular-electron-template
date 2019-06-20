@@ -32,19 +32,33 @@ $theme-dark: true;
     }
     nav {
       background-color: darken(getThemeStyle("body-background-color"), 10%);
+      .nav-header{
+        background-color: darken(getThemeStyle("body-background-color"),5%);
+        color:getThemeStyle("body-foreground-color");
+      }
       a {
         color: getThemeStyle("link-color");
+        border-color: lighten(getThemeStyle("body-background-color"), 10%);
         &:hover {
           background-color: lighten(getThemeStyle("body-background-color"), 8%);
           color: lighten(getThemeStyle("link-color"), 45%);
         }
       }
+      .a-style {
+        color: getThemeStyle("link-color");
+        border-color: getThemeStyle("body-background-color");
+        &:hover {
+          background-color: lighten(getThemeStyle("body-background-color"), 8%);
+          color: lighten(getThemeStyle("link-color"), 45%);
+          border-color: lighten(getThemeStyle("body-background-color"), 20%);
+        }
+      }
       .active {
         color: white;
-        background-color: getThemeStyle("body-background-color");
+        background-color: getThemeStyle("link-color");
         &:hover {
           color: white;
-          background-color: lighten(getThemeStyle("body-background-color"), 8%);
+          background-color: darken(getThemeStyle("link-color"), 18%);
         }
       }
     }

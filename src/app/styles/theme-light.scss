@@ -32,8 +32,21 @@ $theme-dark: false;
     }
     nav {
       background-color: darken(getThemeStyle("body-background-color"), 10%);
+      .nav-header{
+        background-color: darken(getThemeStyle("body-background-color"), 15%);
+        color: mix(getThemeStyle("body-foreground-color"), getThemeStyle("body-background-color"),50%);
+      }
       a {
         color: getThemeStyle("link-color");
+        border-color: darken(getThemeStyle("body-background-color"), 25%);
+        &:hover {
+          background-color: darken(getThemeStyle("body-background-color"), 20%);
+          color: lighten(getThemeStyle("link-color"), 5%);
+        }
+      }
+      .a-style {
+        color: getThemeStyle("link-color");
+        border-color: darken(getThemeStyle("body-background-color"), 25%);
         &:hover {
           background-color: darken(getThemeStyle("body-background-color"), 20%);
           color: lighten(getThemeStyle("link-color"), 5%);
@@ -41,7 +54,7 @@ $theme-dark: false;
       }
       .active {
         color: white;
-        background-color: darken(getThemeStyle("body-background-color"), 50%);
+        background-color: mix(getThemeStyle("link-color"), getThemeStyle("body-background-color"),75%);
         &:hover {
           color: white;
           background-color: darken(getThemeStyle("body-background-color"), 60%);
