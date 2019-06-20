@@ -19,22 +19,26 @@ export class AppConfigShared {
         submenu: [
           {
             label: 'Home',
+            accelerator: 'CmdOrCtrl+H',
             click() {
               win.webContents.send(AppConfigShared.EVENT_CHANNEL_SITE_ROUTE, '/');
             }
           },
           {
             label: 'Welcome',
+            accelerator: 'CmdOrCtrl+Shift+W',
             click() {
               win.webContents.send(AppConfigShared.EVENT_CHANNEL_SITE_ROUTE, '/welcome');
             }
           },
+          { type: 'separator' },
           {
             label: 'Dev Tools',
             click() {
               win.webContents.openDevTools();
             }
           },
+          { type: 'separator' },
           {
             label: 'Exit',
             click() {
