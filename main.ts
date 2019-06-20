@@ -11,34 +11,6 @@ const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
 
 function createMenu() {
-  const menu = Menu.buildFromTemplate([
-    {
-      label: 'Menu',
-      submenu: [
-        {
-          label: 'Dark Theme', click() {
-            win.webContents.send('change_design', 'theme-dark');
-          }
-        },
-        {
-          label: 'Light Theme', click() {
-            win.webContents.send('change_design', 'theme-light');
-          }
-        },
-        {
-          label: 'Exit',
-          click() {
-            app.quit();
-          }
-        }
-      ]
-    }
-  ]);
-
-  // const cfgMenu = Menu.buildFromTemplate(AppConfigShared.getConfig().navigation);
-  // const navCfg = AppConfigShared.getConfig().navigation;
-
-  //Menu.setApplicationMenu(menu);
   const cfgMenu = Menu.buildFromTemplate(AppConfigShared.getConfig(win, app).electronNav);
   Menu.setApplicationMenu(cfgMenu);
 }
@@ -76,7 +48,6 @@ function createWindow() {
   if (serve) {
     win.webContents.openDevTools();
   }
-  win.webContents.openDevTools();
   // Emitted when the window is closed.
   win.on('closed', () => {
     // Dereference the window object, usually you would store window

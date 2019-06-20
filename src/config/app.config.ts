@@ -30,6 +30,12 @@ export class AppConfigShared {
             }
           },
           {
+            label: 'Dev Tools',
+            click() {
+              win.webContents.openDevTools();
+            }
+          },
+          {
             label: 'Exit',
             click() {
               app.quit();
