@@ -1,21 +1,24 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {WorkbenchComponent} from './workbench.component';
+import {WelcomeComponent} from './welcome.component';
+import {RouterModule, Routes} from '@angular/router';
+import {HomeComponent} from '../home/home.component';
+import {WorkbenchComponent} from '../workbench/workbench.component';
 import {TranslateModule} from '@ngx-translate/core';
 import {ElectronService} from '../../providers/electron.service';
 import {StateStorageService} from '../../services/state-storage.service';
-import {RouterModule, Routes} from '@angular/router';
-import {HomeComponent} from '../home/home.component';
 
-describe('WorkbenchComponent', () => {
-  let component: WorkbenchComponent;
-  let fixture: ComponentFixture<WorkbenchComponent>;
+describe('WelcomeComponent', () => {
+  let component: WelcomeComponent;
+  let fixture: ComponentFixture<WelcomeComponent>;
+
   const routes: Routes = [
     {path: 'home', component: HomeComponent}
   ];
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [WorkbenchComponent, HomeComponent],
+      declarations: [WelcomeComponent, WorkbenchComponent, HomeComponent],
       imports: [
         TranslateModule.forRoot(),
         RouterModule.forRoot(routes),
@@ -29,7 +32,7 @@ describe('WorkbenchComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WorkbenchComponent);
+    fixture = TestBed.createComponent(WelcomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

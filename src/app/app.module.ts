@@ -18,7 +18,7 @@ import { WebviewDirective } from './directives/webview.directive';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
-import { WelcomeComponentComponent } from './components/welcome-component/welcome-component.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
 import { WorkbenchComponent } from './components/workbench/workbench.component';
 import { StateStorageService } from './services/state-storage.service';
 
@@ -32,7 +32,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     HomeComponent,
     WebviewDirective,
-    WelcomeComponentComponent,
+    WelcomeComponent,
     WorkbenchComponent
   ],
   imports: [

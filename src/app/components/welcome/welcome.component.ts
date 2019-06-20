@@ -3,10 +3,10 @@ import { ElectronService } from '../../providers/electron.service';
 
 @Component({
   selector: 'app-welcome-component',
-  templateUrl: './welcome-component.component.html',
-  styleUrls: ['./welcome-component.component.scss']
+  templateUrl: './welcome.component.html',
+  styleUrls: ['./welcome.component.scss']
 })
-export class WelcomeComponentComponent implements OnInit {
+export class WelcomeComponent implements OnInit {
 
   constructor(private electron: ElectronService ) { }
 
