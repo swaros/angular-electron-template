@@ -1,8 +1,9 @@
-import { ElectronService } from './../../providers/electron.service';
-import { StateStorageService } from './../../services/state-storage.service';
+import { ElectronService } from '../../providers/electron.service';
+import { StateStorageService } from '../../services/state-storage.service';
 import { Component, OnInit, Input, NgZone } from '@angular/core';
 import { AppConfigShared } from '../../../config/app.config';
 import { Router } from '@angular/router';
+import {ConfigRoute} from '../../model/ConfigRoute';
 
 @Component({
   selector: 'app-workbench',
@@ -17,7 +18,11 @@ export class WorkbenchComponent implements OnInit {
 
   private theme = 'theme-light';
 
+  private showAppMenuFlag = false;
+
   private themeList = ['theme-dark', 'theme-light'];
+
+  private appMenu: ConfigRoute[] = [];
 
   constructor(private storage: StateStorageService,
      private electron: ElectronService,
@@ -41,6 +46,29 @@ export class WorkbenchComponent implements OnInit {
         this.ngZone.run(() => { this.router.navigateByUrl(site, { skipLocationChange: true }); });
       });
     });
+
+    this.electron.addListenerOnce(AppConfigShared.EVENT_CHANNEL_CONFIG_UPDATE, (event: any, configData: ConfigRoute[]) => {
+      this.ngZone.runOutsideAngular(() => {
+        this.ngZone.run(() => {
+          this.appMenu = configData;
+          this.storage.set({
+            key: 'app-menu',
+            value: configData
+          });
+        });
+      });
+    });
+
+    if (this.isElectron()) {
+      const enabledMenu = this.storage.get('app-menu-enabled');
+      if (enabledMenu !== null) {
+        this.showAppMenuFlag = enabledMenu;
+      }
+      this.askForMenu();
+    } else {
+      this.appMenu = AppConfigShared.getAngularMenu();
+      this.showAppMenuFlag = true;
+    }
   }
 
   public setTheme(themeName: string): void {
@@ -67,6 +95,11 @@ export class WorkbenchComponent implements OnInit {
     return this.theme;
   }
 
+  public getNavigation(): ConfigRoute[] {
+    return this.appMenu;
+  }
+
+
   public collapseNav(): void {
     this.navCollapsed = true;
   }
@@ -88,6 +121,25 @@ export class WorkbenchComponent implements OnInit {
       return false;
     }
     return this.electron.isElectron();
+  }
+
+  public toggleAppMenu(): void {
+    this.showAppMenuFlag = !this.showAppMenuFlag;
+    this.storage.set({key: 'app-menu-enabled', value: this.showAppMenuFlag});
+
+  }
+
+  public showAppMenu(): boolean {
+    return this.showAppMenuFlag;
+  }
+
+  public askForMenu(): void {
+    const menuData = this.storage.get('app-menu');
+    if (menuData === null) {
+      this.electron.ipcRenderer.send('get-config-app-menu', 'menu');
+    } else {
+      this.appMenu = menuData;
+    }
   }
 
 }

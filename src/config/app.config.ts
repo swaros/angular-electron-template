@@ -1,11 +1,19 @@
 import { ConfigRoot } from './../app/model/ConfigRoot';
 import { BrowserWindow } from 'electron';
 import { ConfigRoute } from '../app/model/ConfigRoute';
+import {ConfigRuntime} from '../app/model/ConfigRuntime';
 export class AppConfigShared {
 
   static readonly EVENT_CHANNEL_SITE_ROUTE = 'change_site';
   static readonly EVENT_CHANNEL_DESIGN = 'change_design';
+  static readonly EVENT_CHANNEL_CONFIG_UPDATE = 'update_config';
 
+
+  public static getRuntimeConfig(): ConfigRuntime {
+    return {
+      showAppMenu: true
+    };
+  }
 
   /**
    * electron menu.
@@ -59,6 +67,11 @@ export class AppConfigShared {
             label: 'Light Theme', click() {
               win.webContents.send(AppConfigShared.EVENT_CHANNEL_DESIGN, 'theme-light');
             }
+          },
+          {
+            label: 'update config', click() {
+              win.webContents.send(AppConfigShared.EVENT_CHANNEL_CONFIG_UPDATE, AppConfigShared.getAngularMenu());
+            }
           }
         ]
       }
@@ -68,7 +81,7 @@ export class AppConfigShared {
   /**
    * angular menu
    */
-  public static getAngularConfig(): ConfigRoute[] {
+  public static getAngularMenu(): ConfigRoute[] {
     return [
       {
         label: 'home',
@@ -86,7 +99,9 @@ export class AppConfigShared {
       // electron menu
       electronNav: AppConfigShared.getElectronMenu(win, app),
       // angular menu
-      navigation: AppConfigShared.getAngularConfig()
+      navigation: AppConfigShared.getAngularMenu(),
+      // runtime configuration
+      runtime: AppConfigShared.getRuntimeConfig()
     };
   }
 

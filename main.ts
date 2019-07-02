@@ -1,14 +1,16 @@
-import { ConfigRoot } from './src/app/model/ConfigRoot';
-import { ConfigRoute } from './src/app/model/ConfigRoute';
 import { AppConfigShared } from './src/config/app.config';
-import { app, BrowserWindow, screen, Menu, ipcMain, MenuItem } from 'electron';
+import { app, BrowserWindow, screen, Menu, ipcMain } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
-import { ElementSchemaRegistry } from '@angular/compiler';
 
 let win, serve;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
+
+// send back the menu
+ipcMain.on('get-config-app-menu', function (event, arg) {
+  win.webContents.send(AppConfigShared.EVENT_CHANNEL_CONFIG_UPDATE, AppConfigShared.getAngularMenu());
+});
 
 function createMenu() {
   const cfgMenu = Menu.buildFromTemplate(AppConfigShared.getConfig(win, app).electronNav);
@@ -45,6 +47,8 @@ function createWindow() {
     createMenu();
   }
 
+  updateRender();
+
   if (serve) {
     win.webContents.openDevTools();
   }
@@ -55,7 +59,10 @@ function createWindow() {
     // when you should delete the corresponding element.
     win = null;
   });
+}
 
+function updateRender() {
+  win.webContents.send(AppConfigShared.EVENT_CHANNEL_CONFIG_UPDATE, AppConfigShared.getAngularMenu());
 }
 
 try {
