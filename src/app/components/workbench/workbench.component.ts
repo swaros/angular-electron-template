@@ -18,6 +18,8 @@ export class WorkbenchComponent implements OnInit {
 
   @Input() headerCollapsed = false;
 
+  @Input() shortNavbar = true;
+
   private theme = 'theme-light';
 
   private showAppMenuFlag = false;
@@ -127,6 +129,11 @@ export class WorkbenchComponent implements OnInit {
     }
     return this.headerCollapsed;
   }
+
+  public isShortNavBar() {
+    return this.shortNavbar;
+  }
+
 
   public toggleHeader(): void{
     this.headerCollapsed = !this.headerCollapsed;

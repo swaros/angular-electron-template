@@ -15,27 +15,27 @@
       </div>
       <div class="container body">
 
-        <nav [class.collapsed] = "isCollapsed()" *ngIf="showAppMenu()">
-          <div class="nav-header">Navigation</div>
-
-
+        <nav  [ngClass]="{'collapsed': isCollapsed(), 'short' : isShortNavBar()}"  *ngIf="showAppMenu()">
+          <div *ngIf="!isShortNavBar()" class="nav-header">Navigation</div>
 
           <a routerLink="{{routing.route}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-             *ngFor="let routing of getNavigation()">
+             *ngFor="let routing of getNavigation()" title="{{routing.label}}">
             <span class="menu-icon-box">
               <span *ngIf="routing.icon" class="{{routing.icon}}"></span>
             </span>
-            {{routing.label}}
+            <span *ngIf="!isShortNavBar()">
+              {{routing.label}}
+            </span>
           </a>
+        <div *ngIf="!isShortNavBar()">
+          <div class="nav-header">styles</div>
+          <div class="a-style" *ngFor="let theme of getAllThemes()" (click)="setTheme(theme)">
+            {{theme}} <span *ngIf="getTheme() == theme">✓</span>
+          </div>
+          <div class="nav-header">view</div>
 
-        <div class="nav-header">styles</div>
-        <div class="a-style" *ngFor="let theme of getAllThemes()" (click)="setTheme(theme)">
-          {{theme}} <span *ngIf="getTheme() == theme">✓</span>
+          <div class="a-style" (click)="toggleHeader()">Header <span *ngIf="!isHeaderCollapsed()">✓</span> </div>
         </div>
-        <div class="nav-header">view</div>
-
-        <div class="a-style" (click)="toggleHeader()">Header <span *ngIf="!isHeaderCollapsed()">✓</span> </div>
-
         </nav>
         <div class="content">
           <ng-content></ng-content>
