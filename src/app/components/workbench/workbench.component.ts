@@ -5,25 +5,64 @@ import { AppConfigShared } from '../../../config/app.config';
 import { Router } from '@angular/router';
 import {ConfigRoute} from '../../model/ConfigRoute';
 
+/**
+ * the main component for handling
+ * all site components.
+ *
+ * it is responsible for navigation, displaying
+ * page content, swithing global themes and so on.
+ *
+ * any site needs to use <app-workbench> and put they content
+ * inside them.
+ *
+ * like this:
+ *    <app-workbench>hello world</app-workbench>
+ *
+ *
+ */
 @Component({
   selector: 'app-workbench',
   templateUrl: './workbench.component.html',
   styleUrls: ['./workbench.component.scss']
 })
 export class WorkbenchComponent implements OnInit {
-
+  /**
+   * navigation fully displayed or hidden
+   */
   @Input() navCollapsed = false;
 
+  /**
+   * if true isElectron() is false even it runs in electron
+   */
   @Input() forceNonElectronFlag = false;
 
+  /**
+   * collapse header or not
+   */
   @Input() headerCollapsed = false;
 
+  /**
+   * using a navigation they contains
+   * links for sites only. and just
+   * the icons are displayed.
+   */
   @Input() shortNavbar = true;
 
+  /**
+   * default theme
+   */
   private theme = 'theme-light';
 
+  /**
+   * toggle flag for the menu
+   */
   private showAppMenuFlag = false;
 
+  /**
+   * all supported themes. they needs
+   * to be created first.
+   * have a look at the styles folder.
+   */
   private themeList = ['theme-dark', 'theme-light'];
 
   private appMenu: ConfigRoute[] = [];
@@ -82,12 +121,14 @@ export class WorkbenchComponent implements OnInit {
 
     this.electron.addListenerOnce(AppConfigShared.EVENT_CHANNEL_APP_CMD, (event: any, cmd: any) =>{
       this.ngZone.runOutsideAngular(() => {
-        this.ngZone.run(() => {
           switch (cmd) {
             case AppConfigShared.EVENT_FLAG_CMD_APP_MENU_ON :
               this.toggleAppMenu();
               break;
-          }
+
+        }
+        this.ngZone.run(() => {
+          console.log('got command', cmd);
         });
       });
     });
