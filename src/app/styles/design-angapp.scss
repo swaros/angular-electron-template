@@ -23,11 +23,11 @@
   height: 100%;
   @include colorThemeChange();
   .container {
-    height: 100vh - getThemeStyle("header-height");
+    height: 100vh;
     display: block;
     align-items: center;
     justify-content: center;
-
+    overflow: hidden;
     .header {
 
       width: 100vw;
@@ -130,7 +130,7 @@
         transition: background-color 300ms ease-in-out, color 150ms linear;
         @include bottomLine;
         &:hover {
-          text-decoration: underline;
+
         }
       }
 
