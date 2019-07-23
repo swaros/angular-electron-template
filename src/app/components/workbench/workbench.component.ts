@@ -16,6 +16,8 @@ export class WorkbenchComponent implements OnInit {
 
   @Input() forceNonElectronFlag = false;
 
+  @Input() headerCollapsed = false;
+
   private theme = 'theme-light';
 
   private showAppMenuFlag = false;
@@ -115,6 +117,13 @@ export class WorkbenchComponent implements OnInit {
     return this.appMenu;
   }
 
+  public isHeaderCollapsed(): boolean {
+    return this.headerCollapsed;
+  }
+
+  public toggleHeader(): void{
+    this.headerCollapsed = !this.headerCollapsed;
+  }
 
   public collapseNav(): void {
     this.navCollapsed = true;

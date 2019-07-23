@@ -75,8 +75,13 @@
     }
 
     .collapsed {
-      width: 1px;
-      max-width: 1px;
+      width: 0px;
+      max-width: 0px;
+    }
+
+    .collapsed-vertical {
+      height: 0px;
+      max-height: 0px;
     }
 
     // navigation

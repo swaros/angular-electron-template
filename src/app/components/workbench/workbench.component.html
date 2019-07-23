@@ -1,7 +1,7 @@
 <div class="{{getTheme()}}">
   <div class="app">
     <div class="container">
-      <div class="header">
+      <div class="header" [class.collapsed-vertical] = "isHeaderCollapsed()">
         <div class="angapp-row">
           <div *ngIf="showAppMenu()"
                class="clickable" title="toggle menu"
@@ -32,6 +32,9 @@
         <div class="a-style" *ngFor="let theme of getAllThemes()" (click)="setTheme(theme)">
           {{theme}} <span *ngIf="getTheme() == theme">✓</span>
         </div>
+        <div class="nav-header">view</div>
+
+        <div class="a-style" (click)="toggleHeader()">Header <span *ngIf="!isHeaderCollapsed()">✓</span> </div>
 
         </nav>
         <div class="content">
