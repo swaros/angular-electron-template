@@ -46,6 +46,9 @@ export class WorkbenchComponent implements OnInit {
       this.appMenu = AppConfigShared.getAngularMenu();
       this.showAppMenuFlag = true;
     }
+    // this also reads the runtime storage and apply the value to the flag
+    this.isHeaderCollapsed();
+
   }
 
   private setupEventListener(): void {
@@ -118,11 +121,16 @@ export class WorkbenchComponent implements OnInit {
   }
 
   public isHeaderCollapsed(): boolean {
+    const enabledHeader = this.storage.get('app-header-enabled');
+    if (enabledHeader !== null) {
+      this.headerCollapsed = enabledHeader;
+    }
     return this.headerCollapsed;
   }
 
   public toggleHeader(): void{
     this.headerCollapsed = !this.headerCollapsed;
+    this.storage.set({key: 'app-header-enabled', value: this.headerCollapsed});
   }
 
   public collapseNav(): void {
