@@ -8,12 +8,9 @@
                [class.closed] = "isCollapsed()"
                (click)="toggleNav()"></div>
           <h3 class="title">
+            <span class="utf8-icon-benzene-ring"></span>
             {{ 'PAGES.HOME.TITLE' | translate }}
           </h3>
-          <button *ngIf="isElectron()" (click)="toggleAppMenu()">
-            Side Menu
-          </button>
-
         </div>
       </div>
       <div class="container body">
@@ -21,11 +18,20 @@
         <nav [class.collapsed] = "isCollapsed()" *ngIf="showAppMenu()">
           <div class="nav-header">Navigation</div>
 
+
+
           <a routerLink="{{routing.route}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-             *ngFor="let routing of getNavigation()">{{routing.label}}</a>
+             *ngFor="let routing of getNavigation()">
+            <span class="menu-icon-box">
+              <span *ngIf="routing.icon" class="{{routing.icon}}"></span>
+            </span>
+            {{routing.label}}
+          </a>
 
         <div class="nav-header">styles</div>
-        <div class="a-style" *ngFor="let theme of getAllThemes()" (click)="setTheme(theme)">{{theme}}</div>
+        <div class="a-style" *ngFor="let theme of getAllThemes()" (click)="setTheme(theme)">
+          {{theme}} <span *ngIf="getTheme() == theme">✓</span>
+        </div>
 
         </nav>
         <div class="content">

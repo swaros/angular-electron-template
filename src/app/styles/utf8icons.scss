@@ -1,7 +1,130 @@
+/* style icon option-key  */
+@mixin appicon-option-key {
+  &:before {
+    content: "⌥";
+  }
+}
+
+.utf8-icon-option-key {
+  @include appicon-option-key();
+}
+
+/* style icon benzene-ring  */
+@mixin appicon-benzene-ring {
+  &:before {
+    content: "⌬";
+  }
+}
+
+.utf8-icon-benzene-ring {
+  @include appicon-benzene-ring();
+}
+
+/* style icon stopwatch  */
+@mixin appicon-stopwatch {
+  &:before {
+    content: "⏱";
+  }
+}
+
+.utf8-icon-stopwatch {
+  @include appicon-stopwatch();
+}
+
+/* style icon timer-clock  */
+@mixin appicon-timer-clock {
+  &:before {
+    content: "⏲";
+  }
+}
+
+.utf8-icon-timer-clock {
+  @include appicon-timer-clock();
+}
+
+/* style icon triangle-left  */
+@mixin appicon-triangle-left {
+  &:before {
+    content: "⏴";
+  }
+}
+
+.utf8-icon-triangle-left {
+  @include appicon-triangle-left();
+}
+
+/* style icon triangle-right  */
+@mixin appicon-triangle-right {
+  &:before {
+    content: "⏵";
+  }
+}
+
+.utf8-icon-triangle-right {
+  @include appicon-triangle-right();
+}
+
+/* style icon triangle-up  */
+@mixin appicon-triangle-up {
+  &:before {
+    content: "⏶";
+  }
+}
+
+.utf8-icon-triangle-up {
+  @include appicon-triangle-up();
+}
+
+/* style icon triangle-down  */
+@mixin appicon-triangle-down {
+  &:before {
+    content: "⏷";
+  }
+}
+
+.utf8-icon-triangle-down {
+  @include appicon-triangle-down();
+}
+
+
+@mixin appicon-home {
+  &:before{
+    content: "⌂";
+  }
+}
+
+.utf8-icon-home {
+  @include appicon-home();
+}
+
+@mixin appicon-keyboard {
+  &:before {
+    content: "⌨";
+  }
+}
+
+.utf8-icon-keyboard {
+  @include appicon-keyboard();
+}
+
+@mixin appicon-power {
+  &:before {
+    content: "⏻";
+  }
+}
+
+.utf8-icon-power {
+  @include  appicon-power();
+}
+
 @mixin appicon-menu-open{
   &:before{
     content: "⇿";
   }
+}
+
+.utf8-icon-menu-open {
+  @include appicon-menu-open();
 }
 
 @mixin appicon-menu-closed{
@@ -10,6 +133,9 @@
   }
 }
 
+.utf8-icon-menu-closed{
+  @include appicon-menu-closed();
+}
 
 @mixin appicon-arrow-right{
   &:before{
@@ -77,4 +203,71 @@
   &:before{
     content: "●";
   }
+}
+
+/* style icon observer-eyes  */
+@mixin appicon-observer-eyes {
+  &:before {
+    content: "⏿";
+  }
+}
+
+.utf8-icon-observer-eyes {
+  @include appicon-observer-eyes();
+}
+
+
+/* style icon null  */
+@mixin appicon-null {
+  &:before {
+    content: "␀";
+  }
+}
+
+.utf8-icon-null {
+  @include appicon-null();
+}
+
+/* style icon cloud-lightning  */
+@mixin appicon-cloud-lightning {
+  &:before {
+    content: "🌩";
+  }
+}
+
+.utf8-icon-cloud-lightning {
+  @include appicon-cloud-lightning();
+}
+
+/* style icon checkmark  */
+@mixin appicon-checkmark {
+  &:before {
+    content: "✓";
+  }
+}
+
+.utf8-icon-checkmark {
+  @include appicon-checkmark();
+}
+
+/* style icon hello-hand  */
+@mixin appicon-hello-hand {
+  &:before {
+    content: "🖐";
+  }
+}
+
+.utf8-icon-hello-hand {
+  @include appicon-hello-hand();
+}
+
+/* style icon hotpepper  */
+@mixin appicon-hotpepper {
+  &:before {
+    content: "🌶";
+  }
+}
+
+.utf8-icon-hotpepper {
+  @include appicon-hotpepper();
 }

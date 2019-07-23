@@ -6,7 +6,12 @@ export class AppConfigShared {
 
   static readonly EVENT_CHANNEL_SITE_ROUTE = 'change_site';
   static readonly EVENT_CHANNEL_DESIGN = 'change_design';
-  static readonly EVENT_CHANNEL_CONFIG_UPDATE = 'update_config';
+  static readonly EVENT_CHANNEL_CONFIG_APP_MENU = 'update_config_app_menu';
+  static readonly EVENT_CHANNEL_APP_CMD = 'app_cmd';
+
+  static readonly EVENT_FLAG_CMD_APP_MENU_ON = 'enable_app_menu';
+  static readonly EVENT_FLAG_CMD_APP_MENU_OFF = 'disable_app_menu';
+
 
 
   public static getRuntimeConfig(): ConfigRuntime {
@@ -69,8 +74,8 @@ export class AppConfigShared {
             }
           },
           {
-            label: 'update config', click() {
-              win.webContents.send(AppConfigShared.EVENT_CHANNEL_CONFIG_UPDATE, AppConfigShared.getAngularMenu());
+            label: 'site navigation on/off', click() {
+              win.webContents.send(AppConfigShared.EVENT_CHANNEL_APP_CMD, AppConfigShared.EVENT_FLAG_CMD_APP_MENU_ON);
             }
           }
         ]
@@ -85,11 +90,13 @@ export class AppConfigShared {
     return [
       {
         label: 'home',
-        route: '/'
+        route: '/',
+        icon: 'utf8-icon-benzene-ring'
       },
       {
         label: 'welcome',
         route: '/welcome',
+        icon: 'utf8-icon-hello-hand'
       }
     ];
   }

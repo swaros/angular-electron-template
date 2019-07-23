@@ -9,7 +9,7 @@ serve = args.some(val => val === '--serve');
 
 // send back the menu
 ipcMain.on('get-config-app-menu', function (event, arg) {
-  win.webContents.send(AppConfigShared.EVENT_CHANNEL_CONFIG_UPDATE, AppConfigShared.getAngularMenu());
+  win.webContents.send(AppConfigShared.EVENT_CHANNEL_CONFIG_APP_MENU, AppConfigShared.getAngularMenu());
 });
 
 function createMenu() {
@@ -62,7 +62,7 @@ function createWindow() {
 }
 
 function updateRender() {
-  win.webContents.send(AppConfigShared.EVENT_CHANNEL_CONFIG_UPDATE, AppConfigShared.getAngularMenu());
+  win.webContents.send(AppConfigShared.EVENT_CHANNEL_CONFIG_APP_MENU, AppConfigShared.getAngularMenu());
 }
 
 try {

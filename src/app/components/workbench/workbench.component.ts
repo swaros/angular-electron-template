@@ -33,6 +33,20 @@ export class WorkbenchComponent implements OnInit {
 
   ngOnInit() {
     this.getTheme();
+    this.setupEventListener();
+    if (this.isElectron()) {
+      const enabledMenu = this.storage.get('app-menu-enabled');
+      if (enabledMenu !== null) {
+        this.showAppMenuFlag = enabledMenu;
+      }
+      this.askForMenu();
+    } else {
+      this.appMenu = AppConfigShared.getAngularMenu();
+      this.showAppMenuFlag = true;
+    }
+  }
+
+  private setupEventListener(): void {
     this.electron.addListenerOnce(AppConfigShared.EVENT_CHANNEL_DESIGN, (event: any, theme: any) => {
       console.log('WORKBENCH: change design by menu to:', theme);
       this.ngZone.runOutsideAngular(() => {
@@ -47,7 +61,7 @@ export class WorkbenchComponent implements OnInit {
       });
     });
 
-    this.electron.addListenerOnce(AppConfigShared.EVENT_CHANNEL_CONFIG_UPDATE, (event: any, configData: ConfigRoute[]) => {
+    this.electron.addListenerOnce(AppConfigShared.EVENT_CHANNEL_CONFIG_APP_MENU, (event: any, configData: ConfigRoute[]) => {
       this.ngZone.runOutsideAngular(() => {
         this.ngZone.run(() => {
           this.appMenu = configData;
@@ -59,17 +73,19 @@ export class WorkbenchComponent implements OnInit {
       });
     });
 
-    if (this.isElectron()) {
-      const enabledMenu = this.storage.get('app-menu-enabled');
-      if (enabledMenu !== null) {
-        this.showAppMenuFlag = enabledMenu;
-      }
-      this.askForMenu();
-    } else {
-      this.appMenu = AppConfigShared.getAngularMenu();
-      this.showAppMenuFlag = true;
-    }
+    this.electron.addListenerOnce(AppConfigShared.EVENT_CHANNEL_APP_CMD, (event: any, cmd: any) =>{
+      this.ngZone.runOutsideAngular(() => {
+        this.ngZone.run(() => {
+          switch (cmd) {
+            case AppConfigShared.EVENT_FLAG_CMD_APP_MENU_ON :
+              this.toggleAppMenu();
+              break;
+          }
+        });
+      });
+    });
   }
+
 
   public setTheme(themeName: string): void {
     if (this.themeList.indexOf(themeName) > -1) {
