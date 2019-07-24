@@ -205,6 +205,28 @@
   }
 }
 
+@mixin appicon-memo {
+  &:before {
+    content: "\1F4DD";
+  }
+}
+
+.utf8-icon-memo {
+  @include appicon-memo();
+}
+
+@mixin appicon-projector {
+  &:before {
+    content: "📽";
+  }
+}
+
+.utf8-icon-projector {
+  @include appicon-projector();
+}
+
+
+
 /* style icon observer-eyes  */
 @mixin appicon-observer-eyes {
   &:before {

@@ -46,7 +46,7 @@ export class WorkbenchComponent implements OnInit {
    * links for sites only. and just
    * the icons are displayed.
    */
-  @Input() shortNavbar = true;
+  @Input() shortNavbar = false;
 
   /**
    * default theme
@@ -137,11 +137,13 @@ export class WorkbenchComponent implements OnInit {
 
   public setTheme(themeName: string): void {
     if (this.themeList.indexOf(themeName) > -1) {
-      this.theme = themeName;
-      this.storage.set({
-        key: 'current-theme',
-        value: themeName
-      });
+      if (this.theme !== themeName) {
+        this.theme = themeName;
+        this.storage.set({
+          key: 'current-theme',
+          value: themeName
+        });
+    }
     } else {
       console.error(themeName, 'is not a valid theme name', this.themeList);
     }
@@ -176,7 +178,7 @@ export class WorkbenchComponent implements OnInit {
   }
 
 
-  public toggleHeader(): void{
+  public toggleHeader(): void {
     this.headerCollapsed = !this.headerCollapsed;
     this.storage.set({key: 'app-header-enabled', value: this.headerCollapsed});
   }

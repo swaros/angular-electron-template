@@ -44,6 +44,13 @@ export class AppConfigShared {
               win.webContents.send(AppConfigShared.EVENT_CHANNEL_SITE_ROUTE, '/welcome');
             }
           },
+          {
+            label: 'Config',
+            accelerator: 'CmdOrCtrl+Shift+C',
+            click() {
+              win.webContents.send(AppConfigShared.EVENT_CHANNEL_SITE_ROUTE, '/Config');
+            }
+          },
           { type: 'separator' },
           {
             label: 'Dev Tools',
@@ -97,6 +104,11 @@ export class AppConfigShared {
         label: 'welcome',
         route: '/welcome',
         icon: 'utf8-icon-hello-hand'
+      },
+      {
+        label: 'config',
+        route: '/config',
+        icon: 'utf8-icon-projector'
       }
     ];
   }

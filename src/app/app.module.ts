@@ -21,6 +21,7 @@ import { HomeComponent } from './components/home/home.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { WorkbenchComponent } from './components/workbench/workbench.component';
 import { StateStorageService } from './services/state-storage.service';
+import { ConfigureComponent } from './components/configure/configure.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -33,7 +34,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeComponent,
     WebviewDirective,
     WelcomeComponent,
-    WorkbenchComponent
+    WorkbenchComponent,
+    ConfigureComponent
   ],
   imports: [
     BrowserModule,

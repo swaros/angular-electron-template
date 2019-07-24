@@ -1,5 +1,6 @@
 import { KeyValue } from './../model/KeyValue';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,9 @@ import { Injectable } from '@angular/core';
 export class StateStorageService {
 
   private storage: KeyValue[] = [];
+
+  private configAnnounced = new Subject<KeyValue>();
+  configChanged$ = this.configAnnounced.asObservable();
 
   constructor() { }
 
@@ -20,9 +24,11 @@ export class StateStorageService {
     }
     if (found !== null && found.length === 1) {
       found[0].value = entry.value;
+      this.configAnnounced.next(found[0]);
       return 1;
     }
     this.storage.push(entry);
+    this.configAnnounced.next(entry);
     console.log('new content of storage', this.storage);
     return state;
   }

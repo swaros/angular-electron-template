@@ -1,3 +1,4 @@
+import { ConfigureComponent } from './components/configure/configure.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { HomeComponent } from './components/home/home.component';
 import { NgModule } from '@angular/core';
@@ -10,6 +11,9 @@ const routes: Routes = [
     }, {
         path: 'welcome',
         component: WelcomeComponent
+    }, {
+      path: 'config',
+      component: ConfigureComponent
     }
 ];
 
