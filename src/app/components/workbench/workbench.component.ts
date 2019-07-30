@@ -78,18 +78,20 @@ export class WorkbenchComponent implements OnInit {
     this.getTheme();
     this.setupEventListener();
     if (this.isElectron()) {
-      const enabledMenu = this.storage.get('app-menu-enabled');
+      // on a electron application the website menu is not enabaledby default
+      // but it can be used if app-menu-enabled is true
+      const enabledMenu = this.storage.get(AppConfigShared.CFG_APP_MENU_ENABLED);
       if (enabledMenu !== null) {
         this.showAppMenuFlag = enabledMenu;
       }
       this.askForMenu();
     } else {
       this.appMenu = AppConfigShared.getAngularMenu();
+      // side menu is essential for website. so allways true
       this.showAppMenuFlag = true;
     }
     // this also reads the runtime storage and apply the value to the flag
     this.isHeaderCollapsed();
-
   }
 
   private setupEventListener(): void {
@@ -125,7 +127,6 @@ export class WorkbenchComponent implements OnInit {
             case AppConfigShared.EVENT_FLAG_CMD_APP_MENU_ON :
               this.toggleAppMenu();
               break;
-
         }
         this.ngZone.run(() => {
           console.log('got command', cmd);
@@ -140,7 +141,7 @@ export class WorkbenchComponent implements OnInit {
       if (this.theme !== themeName) {
         this.theme = themeName;
         this.storage.set({
-          key: 'current-theme',
+          key: AppConfigShared.CFG_APP_THEME,
           value: themeName
         });
     }
@@ -154,7 +155,7 @@ export class WorkbenchComponent implements OnInit {
   }
 
   public getTheme(): string {
-    const storedTheme = this.storage.get('current-theme');
+    const storedTheme = this.storage.get(AppConfigShared.CFG_APP_THEME);
     if (storedTheme !== null) {
       this.setTheme(storedTheme);
     }
@@ -166,7 +167,7 @@ export class WorkbenchComponent implements OnInit {
   }
 
   public isHeaderCollapsed(): boolean {
-    const enabledHeader = this.storage.get('app-header-enabled');
+    const enabledHeader = this.storage.get(AppConfigShared.CFG_APP_HEADER_ENABLED);
     if (enabledHeader !== null) {
       // invert header flag. enabled header is not collapsed
       this.headerCollapsed = !enabledHeader;
@@ -182,7 +183,7 @@ export class WorkbenchComponent implements OnInit {
   public toggleHeader(): void {
     this.headerCollapsed = !this.headerCollapsed;
     // store reverted collapsed value
-    this.storage.set({key: 'app-header-enabled', value: !this.headerCollapsed});
+    this.storage.set({key: AppConfigShared.CFG_APP_HEADER_ENABLED, value: !this.headerCollapsed});
   }
 
   public collapseNav(): void {
@@ -210,7 +211,7 @@ export class WorkbenchComponent implements OnInit {
 
   public toggleAppMenu(): void {
     this.showAppMenuFlag = !this.showAppMenuFlag;
-    this.storage.set({key: 'app-menu-enabled', value: this.showAppMenuFlag});
+    this.storage.set({key: AppConfigShared.CFG_APP_MENU_ENABLED, value: this.showAppMenuFlag});
 
   }
 
@@ -221,7 +222,7 @@ export class WorkbenchComponent implements OnInit {
   public askForMenu(): void {
     const menuData = this.storage.get('app-menu');
     if (menuData === null) {
-      this.electron.ipcRenderer.send('get-config-app-menu', 'menu');
+      this.electron.ipcRenderer.send(AppConfigShared.EVENT_CHANNEL_SEND_GET_MENU, 'menu');
     } else {
       this.appMenu = menuData;
     }

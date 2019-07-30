@@ -2,6 +2,7 @@ import { KeyValue } from './../../model/KeyValue';
 import { StateStorageService } from './../../services/state-storage.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { AppConfigShared } from './../../../config/app.config';
 
 @Component({
   selector: 'app-configure',
@@ -11,25 +12,22 @@ import { Subscription } from 'rxjs';
 export class ConfigureComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
-
+  // flag for the application header
   public cfgHeader = true;
+  // flag for the sidebar menu
+  public cfgSideBar = true;
+
+  // draw flag
   public isInitialized = false;
 
   constructor(private storage: StateStorageService) {
-    this.subscription = storage.configChanged$.subscribe(
-      cfg => {
-         this.configChanged(cfg);
-      }
-    );
   }
 
   ngOnInit() {
-    var chkValue = this.storage.get("app-header-enabled");
-    if (chkValue !== null) {
-        this.cfgHeader = chkValue;
-    }
-
-    console.log("header value", this.cfgHeader);
+    // reading initial values
+    this.cfgHeader = this.applyCfgIfSet(AppConfigShared.CFG_APP_HEADER_ENABLED, this.cfgHeader);
+    this.cfgSideBar = this.applyCfgIfSet(AppConfigShared.CFG_APP_MENU_ENABLED, this.cfgSideBar);
+    this.startListener();
     this.isInitialized = true;
   }
 
@@ -38,17 +36,45 @@ export class ConfigureComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  private startListener(){
+      // listen to all configuration changes
+      this.subscription = this.storage.configChanged$.subscribe(
+        cfg => {
+           this.configChanged(cfg);
+        }
+      );
+  }
+
+  private stopListener() {
+      this.subscription.unsubscribe();
+  }
+
+  private applyCfgIfSet(name:String, fallbackValue:any): any {
+      var chk = this.storage.get(name);
+      if (chk !== null) {
+          return chk;
+      }
+      return fallbackValue;
+  }
+
   public switchFor(name:String, value:boolean){
+    this.stopListener(); // stop listening for changes
     if (name === "header") {
       this.cfgHeader = value;
-      this.storage.set({key: 'app-header-enabled', value: this.cfgHeader});
+      this.storage.set({key: AppConfigShared.CFG_APP_HEADER_ENABLED, value: this.cfgHeader});
     }
+    if (name == 'menu') {
+      this.cfgSideBar = value;
+      this.storage.set({key: AppConfigShared.CFG_APP_MENU_ENABLED, value: this.cfgSideBar});
+    }
+
+    this.startListener(); // watch for changes again
+
   }
 
   private configChanged(config: KeyValue) {
-    console.log('changed config', config.key, "new value:", config.value);
-    if (config.key === "app-header-enabled") {
-        this.cfgHeader = config.value;
+    if (config.key === AppConfigShared.CFG_APP_HEADER_ENABLED) {
+        this.switchFor('header', config.value);
     }
   }
 

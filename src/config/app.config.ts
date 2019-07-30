@@ -12,6 +12,10 @@ export class AppConfigShared {
   static readonly EVENT_FLAG_CMD_APP_MENU_ON = 'enable_app_menu';
   static readonly EVENT_FLAG_CMD_APP_MENU_OFF = 'disable_app_menu';
 
+  static readonly CFG_APP_MENU_ENABLED = 'app-menu-enabled';
+  static readonly CFG_APP_HEADER_ENABLED = 'app-header-enabled';
+    static readonly CFG_APP_THEME = 'current-theme';
+
 
 
   public static getRuntimeConfig(): ConfigRuntime {

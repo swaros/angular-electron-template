@@ -4,6 +4,11 @@
       <aui-switch-btn
         (OnChange)="switchFor('header', $event)"
         [enabled]="cfgHeader"
-        Label="Application Header"></aui-switch-btn>      
+        Label="Application Header"></aui-switch-btn>
+
+        <aui-switch-btn
+          (OnChange)="switchFor('menu', $event)"
+          [enabled]="cfgSideBar"
+          Label="Sidebar menu"></aui-switch-btn>
   </div>
 </app-workbench>
