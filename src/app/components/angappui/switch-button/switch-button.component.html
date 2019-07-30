@@ -1,0 +1,10 @@
+<div class="angapp-elements-flow">
+  <div class="aui-switch-btn" (click)="toggle()">
+    <div  [ngClass]="{'aui-switch-toggle':true, 'aui-switch-off': !State, 'aui-switch-on': State}">
+      {{ getLabel()}}
+    </div>
+  </div>
+  <div class="aui-right-element">
+    <aui-label>{{Label}}</aui-label>
+  </div>
+</div>

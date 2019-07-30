@@ -22,6 +22,9 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
 import { WorkbenchComponent } from './components/workbench/workbench.component';
 import { StateStorageService } from './services/state-storage.service';
 import { ConfigureComponent } from './components/configure/configure.component';
+import { PanelComponent } from './components/angappui/panel/panel.component';
+import { SwitchButtonComponent } from './components/angappui/switch-button/switch-button.component';
+import { LabelComponent } from './components/angappui/label/label.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -35,7 +38,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     WebviewDirective,
     WelcomeComponent,
     WorkbenchComponent,
-    ConfigureComponent
+    ConfigureComponent,
+    PanelComponent,
+    SwitchButtonComponent,
+    LabelComponent
   ],
   imports: [
     BrowserModule,
