@@ -168,7 +168,8 @@ export class WorkbenchComponent implements OnInit {
   public isHeaderCollapsed(): boolean {
     const enabledHeader = this.storage.get('app-header-enabled');
     if (enabledHeader !== null) {
-      this.headerCollapsed = enabledHeader;
+      // invert header flag. enabled header is not collapsed
+      this.headerCollapsed = !enabledHeader;
     }
     return this.headerCollapsed;
   }
@@ -180,7 +181,8 @@ export class WorkbenchComponent implements OnInit {
 
   public toggleHeader(): void {
     this.headerCollapsed = !this.headerCollapsed;
-    this.storage.set({key: 'app-header-enabled', value: this.headerCollapsed});
+    // store reverted collapsed value
+    this.storage.set({key: 'app-header-enabled', value: !this.headerCollapsed});
   }
 
   public collapseNav(): void {

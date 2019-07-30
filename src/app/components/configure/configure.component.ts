@@ -12,6 +12,9 @@ export class ConfigureComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
 
+  public cfgHeader = true;
+  public isInitialized = false;
+
   constructor(private storage: StateStorageService) {
     this.subscription = storage.configChanged$.subscribe(
       cfg => {
@@ -21,6 +24,13 @@ export class ConfigureComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    var chkValue = this.storage.get("app-header-enabled");
+    if (chkValue !== null) {
+        this.cfgHeader = chkValue;
+    }
+
+    console.log("header value", this.cfgHeader);
+    this.isInitialized = true;
   }
 
   ngOnDestroy() {
@@ -28,8 +38,18 @@ export class ConfigureComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  public switchFor(name:String, value:boolean){
+    if (name === "header") {
+      this.cfgHeader = value;
+      this.storage.set({key: 'app-header-enabled', value: this.cfgHeader});
+    }
+  }
+
   private configChanged(config: KeyValue) {
-    console.log('changed config', config);
+    console.log('changed config', config.key, "new value:", config.value);
+    if (config.key === "app-header-enabled") {
+        this.cfgHeader = config.value;
+    }
   }
 
 

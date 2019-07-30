@@ -1,6 +1,9 @@
 <app-workbench>
-  <div class="angapp-box">
+  <div class="angapp-box" *ngIf="isInitialized">
       <h2>Configuration</h2>
-      <aui-switch-btn Label="Sidebar"></aui-switch-btn>
+      <aui-switch-btn
+        (OnChange)="switchFor('header', $event)"
+        [enabled]="cfgHeader"
+        Label="Application Header"></aui-switch-btn>      
   </div>
 </app-workbench>
