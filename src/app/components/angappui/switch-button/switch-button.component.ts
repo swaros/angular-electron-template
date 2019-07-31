@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter,SimpleChanges, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -20,15 +20,15 @@ export class SwitchButtonComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     if (this.enabled) {
-        this.State = true;
+      this.State = true;
     }
   }
 
-  ngOnChanges(changes: SimpleChanges): void {      
-      if (changes.enabled !== undefined && changes.enabled.currentValue !== undefined) {
-        this.State = changes.enabled.currentValue;
-        console.log("set value ", this.State);
-      }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.enabled !== undefined && changes.enabled.currentValue !== undefined) {
+      this.State = changes.enabled.currentValue;
+
+    }
   }
 
   public getLabel(): String {

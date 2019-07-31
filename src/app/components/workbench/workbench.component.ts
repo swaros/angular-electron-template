@@ -3,7 +3,7 @@ import { StateStorageService } from '../../services/state-storage.service';
 import { Component, OnInit, Input, NgZone } from '@angular/core';
 import { AppConfigShared } from '../../../config/app.config';
 import { Router } from '@angular/router';
-import {ConfigRoute} from '../../model/ConfigRoute';
+import { ConfigRoute } from '../../model/ConfigRoute';
 
 /**
  * the main component for handling
@@ -68,10 +68,10 @@ export class WorkbenchComponent implements OnInit {
   private appMenu: ConfigRoute[] = [];
 
   constructor(private storage: StateStorageService,
-     private electron: ElectronService,
-     private ngZone: NgZone,
-     private router: Router
-     ) {
+    private electron: ElectronService,
+    private ngZone: NgZone,
+    private router: Router
+  ) {
   }
 
   ngOnInit() {
@@ -92,13 +92,11 @@ export class WorkbenchComponent implements OnInit {
     }
     // this also reads the runtime storage and apply the value to the flag
     this.isHeaderCollapsed();
-
     this.isShortNavBar();
   }
 
   private setupEventListener(): void {
     this.electron.addListenerOnce(AppConfigShared.EVENT_CHANNEL_DESIGN, (event: any, theme: any) => {
-      console.log('WORKBENCH: change design by menu to:', theme);
       this.ngZone.runOutsideAngular(() => {
         this.setTheme(theme);
         this.ngZone.run(() => { console.log('theme switch done', theme); });
@@ -123,12 +121,12 @@ export class WorkbenchComponent implements OnInit {
       });
     });
 
-    this.electron.addListenerOnce(AppConfigShared.EVENT_CHANNEL_APP_CMD, (event: any, cmd: any) =>{
+    this.electron.addListenerOnce(AppConfigShared.EVENT_CHANNEL_APP_CMD, (event: any, cmd: any) => {
       this.ngZone.runOutsideAngular(() => {
-          switch (cmd) {
-            case AppConfigShared.EVENT_FLAG_CMD_APP_MENU_ON :
-              this.toggleAppMenu();
-              break;
+        switch (cmd) {
+          case AppConfigShared.EVENT_FLAG_CMD_APP_MENU_ON:
+            this.toggleAppMenu();
+            break;
         }
         this.ngZone.run(() => {
           console.log('got command', cmd);
@@ -146,7 +144,7 @@ export class WorkbenchComponent implements OnInit {
           key: AppConfigShared.CFG_APP_THEME,
           value: themeName
         });
-    }
+      }
     } else {
       console.error(themeName, 'is not a valid theme name', this.themeList);
     }
@@ -178,9 +176,9 @@ export class WorkbenchComponent implements OnInit {
   }
 
   public isShortNavBar() {
-    var shortNav = this.storage.get(AppConfigShared.CFG_APP_MENU_ICONIZED);
+    const shortNav = this.storage.get(AppConfigShared.CFG_APP_MENU_ICONIZED);
     if (shortNav !== null) {
-        this.shortNavbar = shortNav;
+      this.shortNavbar = shortNav;
     }
     return this.shortNavbar;
   }
@@ -189,7 +187,7 @@ export class WorkbenchComponent implements OnInit {
   public toggleHeader(): void {
     this.headerCollapsed = !this.headerCollapsed;
     // store reverted collapsed value
-    this.storage.set({key: AppConfigShared.CFG_APP_HEADER_ENABLED, value: !this.headerCollapsed});
+    this.storage.set({ key: AppConfigShared.CFG_APP_HEADER_ENABLED, value: !this.headerCollapsed });
   }
 
   public collapseNav(): void {
@@ -217,7 +215,7 @@ export class WorkbenchComponent implements OnInit {
 
   public toggleAppMenu(): void {
     this.showAppMenuFlag = !this.showAppMenuFlag;
-    this.storage.set({key: AppConfigShared.CFG_APP_MENU_ENABLED, value: this.showAppMenuFlag});
+    this.storage.set({ key: AppConfigShared.CFG_APP_MENU_ENABLED, value: this.showAppMenuFlag });
 
   }
 

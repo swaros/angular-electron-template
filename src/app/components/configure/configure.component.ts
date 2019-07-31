@@ -16,7 +16,7 @@ export class ConfigureComponent implements OnInit, OnDestroy {
   public cfgHeader = true;
   // flag for the sidebar menu
   public cfgSideBar = true;
- // menu entries just drawn as icon
+  // menu entries just drawn as icon
   public cfgIconizedMenu = false;
 
   // draw flag
@@ -39,40 +39,40 @@ export class ConfigureComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  private startListener(){
-      // listen to all configuration changes
-      this.subscription = this.storage.configChanged$.subscribe(
-        cfg => {
-           this.configChanged(cfg);
-        }
-      );
+  private startListener() {
+    // listen to all configuration changes
+    this.subscription = this.storage.configChanged$.subscribe(
+      cfg => {
+        this.configChanged(cfg);
+      }
+    );
   }
 
   private stopListener() {
-      this.subscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
-  private applyCfgIfSet(name:string, fallbackValue:any): any {
-      var chk = this.storage.get(name);
-      if (chk !== null) {
-          return chk;
-      }
-      return fallbackValue;
+  private applyCfgIfSet(name: string, fallbackValue: any): any {
+    const chk = this.storage.get(name);
+    if (chk !== null) {
+      return chk;
+    }
+    return fallbackValue;
   }
 
-  public switchFor(name:string, value:boolean){
+  public switchFor(name: string, value: boolean) {
     this.stopListener(); // stop listening for changes
-    if (name === "header") {
+    if (name === 'header') {
       this.cfgHeader = value;
-      this.storage.set({key: AppConfigShared.CFG_APP_HEADER_ENABLED, value: value});
+      this.storage.set({ key: AppConfigShared.CFG_APP_HEADER_ENABLED, value: value });
     }
-    if (name == 'menu') {
+    if (name === 'menu') {
       this.cfgSideBar = value;
-      this.storage.set({key: AppConfigShared.CFG_APP_MENU_ENABLED, value: value});
+      this.storage.set({ key: AppConfigShared.CFG_APP_MENU_ENABLED, value: value });
     }
-    if (name == 'menu-icon') {
+    if (name === 'menu-icon') {
       this.cfgIconizedMenu = value;
-      this.storage.set({key: AppConfigShared.CFG_APP_MENU_ICONIZED, value: value});
+      this.storage.set({ key: AppConfigShared.CFG_APP_MENU_ICONIZED, value: value });
     }
     this.startListener(); // watch for changes again
 
@@ -80,7 +80,7 @@ export class ConfigureComponent implements OnInit, OnDestroy {
 
   private configChanged(config: KeyValue) {
     if (config.key === AppConfigShared.CFG_APP_HEADER_ENABLED) {
-        this.switchFor('header', config.value);
+      this.switchFor('header', config.value);
     }
   }
 
