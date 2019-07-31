@@ -92,6 +92,8 @@ export class WorkbenchComponent implements OnInit {
     }
     // this also reads the runtime storage and apply the value to the flag
     this.isHeaderCollapsed();
+
+    this.isShortNavBar();
   }
 
   private setupEventListener(): void {
@@ -176,6 +178,10 @@ export class WorkbenchComponent implements OnInit {
   }
 
   public isShortNavBar() {
+    var shortNav = this.storage.get(AppConfigShared.CFG_APP_MENU_ICONIZED);
+    if (shortNav !== null) {
+        this.shortNavbar = shortNav;
+    }
     return this.shortNavbar;
   }
 

@@ -5,10 +5,15 @@
         (OnChange)="switchFor('header', $event)"
         [enabled]="cfgHeader"
         Label="Application Header"></aui-switch-btn>
-
+        <hr>
         <aui-switch-btn
           (OnChange)="switchFor('menu', $event)"
           [enabled]="cfgSideBar"
           Label="Sidebar menu"></aui-switch-btn>
+          <hr>
+          <aui-switch-btn
+            (OnChange)="switchFor('menu-icon', $event)"
+            [enabled]="cfgIconizedMenu"
+            Label="Sidebar menu. Show icons only"></aui-switch-btn>    
   </div>
 </app-workbench>

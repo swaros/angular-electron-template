@@ -8,13 +8,15 @@ export class AppConfigShared {
   static readonly EVENT_CHANNEL_DESIGN = 'change_design';
   static readonly EVENT_CHANNEL_CONFIG_APP_MENU = 'update_config_app_menu';
   static readonly EVENT_CHANNEL_APP_CMD = 'app_cmd';
+  static readonly EVENT_CHANNEL_SEND_GET_MENU = 'get-config-app-menu';
 
   static readonly EVENT_FLAG_CMD_APP_MENU_ON = 'enable_app_menu';
   static readonly EVENT_FLAG_CMD_APP_MENU_OFF = 'disable_app_menu';
 
   static readonly CFG_APP_MENU_ENABLED = 'app-menu-enabled';
+  static readonly CFG_APP_MENU_ICONIZED = 'app-menu-icons-only';
   static readonly CFG_APP_HEADER_ENABLED = 'app-header-enabled';
-    static readonly CFG_APP_THEME = 'current-theme';
+  static readonly CFG_APP_THEME = 'current-theme';
 
 
 
@@ -52,7 +54,7 @@ export class AppConfigShared {
             label: 'Config',
             accelerator: 'CmdOrCtrl+Shift+C',
             click() {
-              win.webContents.send(AppConfigShared.EVENT_CHANNEL_SITE_ROUTE, '/Config');
+              win.webContents.send(AppConfigShared.EVENT_CHANNEL_SITE_ROUTE, '/config');
             }
           },
           { type: 'separator' },

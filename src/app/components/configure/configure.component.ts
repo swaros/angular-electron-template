@@ -16,6 +16,8 @@ export class ConfigureComponent implements OnInit, OnDestroy {
   public cfgHeader = true;
   // flag for the sidebar menu
   public cfgSideBar = true;
+ // menu entries just drawn as icon
+  public cfgIconizedMenu = false;
 
   // draw flag
   public isInitialized = false;
@@ -27,6 +29,7 @@ export class ConfigureComponent implements OnInit, OnDestroy {
     // reading initial values
     this.cfgHeader = this.applyCfgIfSet(AppConfigShared.CFG_APP_HEADER_ENABLED, this.cfgHeader);
     this.cfgSideBar = this.applyCfgIfSet(AppConfigShared.CFG_APP_MENU_ENABLED, this.cfgSideBar);
+    this.cfgIconizedMenu = this.applyCfgIfSet(AppConfigShared.CFG_APP_MENU_ICONIZED, this.cfgIconizedMenu);
     this.startListener();
     this.isInitialized = true;
   }
@@ -49,7 +52,7 @@ export class ConfigureComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
   }
 
-  private applyCfgIfSet(name:String, fallbackValue:any): any {
+  private applyCfgIfSet(name:string, fallbackValue:any): any {
       var chk = this.storage.get(name);
       if (chk !== null) {
           return chk;
@@ -57,17 +60,20 @@ export class ConfigureComponent implements OnInit, OnDestroy {
       return fallbackValue;
   }
 
-  public switchFor(name:String, value:boolean){
+  public switchFor(name:string, value:boolean){
     this.stopListener(); // stop listening for changes
     if (name === "header") {
       this.cfgHeader = value;
-      this.storage.set({key: AppConfigShared.CFG_APP_HEADER_ENABLED, value: this.cfgHeader});
+      this.storage.set({key: AppConfigShared.CFG_APP_HEADER_ENABLED, value: value});
     }
     if (name == 'menu') {
       this.cfgSideBar = value;
-      this.storage.set({key: AppConfigShared.CFG_APP_MENU_ENABLED, value: this.cfgSideBar});
+      this.storage.set({key: AppConfigShared.CFG_APP_MENU_ENABLED, value: value});
     }
-
+    if (name == 'menu-icon') {
+      this.cfgIconizedMenu = value;
+      this.storage.set({key: AppConfigShared.CFG_APP_MENU_ICONIZED, value: value});
+    }
     this.startListener(); // watch for changes again
 
   }
